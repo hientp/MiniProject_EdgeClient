@@ -29,63 +29,90 @@ public class ServiceInstanceRestController {
 
 
     //Accounts
-    @GetMapping("/banking/checking_accounts/")
+    @GetMapping("/minibanking/checking_accounts/")
     @ResponseStatus(HttpStatus.OK)
     public List<CheckingAccountDTO> searchCheckingAccount(@RequestParam Optional<Integer> user) {
-        if(user.isPresent()) {
-            FirstPartyUserDTO primaryOwner = (FirstPartyUserDTO) bankingSystemInterface.findById(user.get()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
-            return bankingSystemInterface.findCheckingAccountByPrimaryOwner(primaryOwner);
-        } else {
-            return bankingSystemInterface.findAllCheckingAccounts();
-        }
+       return bankingSystemInterface.searchCheckingAccount(user);
     }
 
-    @GetMapping("/banking/savings_accounts/")
+    @GetMapping("/minibanking/savings_accounts/")
     @ResponseStatus(HttpStatus.OK)
     public List<SavingsAccountDTO> searchSavingsAccount(@RequestParam Optional<Integer> user) {
-        if(user.isPresent()) {
-            FirstPartyUserDTO primaryOwner = (FirstPartyUserDTO) bankingSystemInterface.findById(user.get()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
-            return bankingSystemInterface.findSavingsAccountByPrimaryOwner(primaryOwner);
-        } else {
-            return bankingSystemInterface.findAllSavingsAccounts();
-        }
+        return bankingSystemInterface.searchSavingsAccount(user);
     }
 
-    @GetMapping("/banking/credit_cards/")
+    @GetMapping("/minibanking/credit_cards/")
     @ResponseStatus(HttpStatus.OK)
     public List<CreditCardDTO> searchCreditCard(@RequestParam Optional<Integer> user) {
-        if(user.isPresent()) {
-            FirstPartyUserDTO primaryOwner = (FirstPartyUserDTO) bankingSystemInterface.findById(user.get()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
-            return bankingSystemInterface.findCreditCardByPrimaryOwner(primaryOwner);
-        } else {
-            return bankingSystemInterface.findAllCreditCards();
-        }
+       return bankingSystemInterface.searchCreditCard(user);
     }
 
-    @GetMapping("/banking/account_balance/{id}")
+    @GetMapping("/minibanking/account_balance/{id}")
     @ResponseStatus(HttpStatus.OK)
     public BalanceDTO searchBalance(@PathVariable Integer id) {
-        return new BalanceDTO(bankingSystemInterface.findBalanceOfAccount(id));
+        return bankingSystemInterface.searchBalance(id);
     }
 
 
-    @PatchMapping("/banking/checking_account_balance/{id}")
+    @PatchMapping("/minibanking/checking_account_balance/{id}")
     @ResponseStatus(HttpStatus.OK)
     public CheckingAccountDTO modifyCheckingAccountBalance(@PathVariable Integer id, @RequestBody @Valid BalanceDTO balanceDTO)  {
         return bankingSystemInterface.modifyCheckingAccountBalance(id,balanceDTO);
     }
 
 
-    @PatchMapping("/banking/savings_account_balance/{id}")
+    @PatchMapping("/minibanking/savings_account_balance/{id}")
     @ResponseStatus(HttpStatus.OK)
     public SavingsAccountDTO modifySavingsAccountBalance(@PathVariable Integer id, @RequestBody @Valid BalanceDTO balanceDTO)  {
         return bankingSystemInterface.modifySavingsAccountBalance(id,balanceDTO);
     }
 
-    @PatchMapping("/banking/credit_card_balance/{id}")
+    @PatchMapping("/minibanking/credit_card_balance/{id}")
     @ResponseStatus(HttpStatus.OK)
     public CreditCardDTO modifyCreditCardBalance(@PathVariable Integer id, @RequestBody @Valid BalanceDTO balanceDTO)  {
         return bankingSystemInterface.modifyCreditCardBalance(id,balanceDTO);
+    }
+
+    @PostMapping("/minibanking/account/new_checking_account/")
+    @ResponseStatus(HttpStatus.CREATED)
+    public CheckingAccountDTO createNewCheckingAccount(@RequestBody @Valid CheckingAccountDTO checkingAccountDTO) {
+        return bankingSystemInterface.createNewCheckingAccount(checkingAccountDTO);
+    }
+
+    @PostMapping("/minibanking/account/new_savings_account/")
+    @ResponseStatus(HttpStatus.CREATED)
+    public SavingsAccountDTO createNewSavingsAccount(@RequestBody @Valid SavingsAccountDTO savingsAccountDTO) {
+        return bankingSystemInterface.createNewSavingsAccount(savingsAccountDTO);
+    }
+
+    @PostMapping("/minibanking/account/new_credit_card/")
+    @ResponseStatus(HttpStatus.CREATED)
+    public CreditCardDTO createNewCreditCard(@RequestBody @Valid CreditCardDTO creditCardDTO) {
+        return bankingSystemInterface.createNewCreditCard(creditCardDTO);
+    }
+
+    @GetMapping("/minibanking/user/")
+    @ResponseStatus(HttpStatus.OK)
+    public List<UserDTO> searchUser(@RequestParam Optional<Integer> user) {
+        return bankingSystemInterface.searchUser(user);
+    }
+
+    @PostMapping("/minibanking/user/new_account_holder/")
+    @ResponseStatus(HttpStatus.CREATED)
+    public AccountHolderDTO createNewCustomer(@RequestBody @Valid FirstPartyUserDTO firstPartyUserDTO) {
+        return bankingSystemInterface.createNewCustomer(firstPartyUserDTO);
+    }
+
+    @PostMapping("/minibanking/user/new_admin/")
+    @ResponseStatus(HttpStatus.CREATED)
+    public AdminDTO createNewAdmin(@RequestBody @Valid FirstPartyUserDTO firstPartyUserDTO) {
+        return bankingSystemInterface.createNewAdmin(firstPartyUserDTO);
+    }
+
+    @PostMapping("/minibanking/user/new_third_party/")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ThirdPartyDTO createNewThirdParty(@RequestBody @Valid ThirdPartyDTO thirdPartyDTO) {
+        return bankingSystemInterface.createNewThirdParty(thirdPartyDTO);
     }
 
 

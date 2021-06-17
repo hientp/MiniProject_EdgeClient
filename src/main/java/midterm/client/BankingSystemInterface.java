@@ -18,36 +18,25 @@ public interface BankingSystemInterface {
     @ResponseStatus(HttpStatus.OK)
     public List<CheckingAccountDTO> searchCheckingAccount(@RequestParam Optional<Integer> user);
 
-    List<CheckingAccountDTO> findCheckingAccountByPrimaryOwner(FirstPartyUserDTO primaryOwner);
-
-    List<CheckingAccountDTO> findAllCheckingAccounts();
-
-    Optional<Object> findById(Integer integer);
 
 
     @GetMapping("/banking/savings_accounts/")
     @ResponseStatus(HttpStatus.OK)
     public List<SavingsAccountDTO> searchSavingsAccount(@RequestParam Optional<Integer> user);
 
-    List<SavingsAccountDTO> findSavingsAccountByPrimaryOwner(FirstPartyUserDTO primaryOwner);
-
-    List<SavingsAccountDTO> findAllSavingsAccounts();
 
 
     @GetMapping("/banking/credit_cards/")
     @ResponseStatus(HttpStatus.OK)
     public List<CreditCardDTO> searchCreditCard(@RequestParam Optional<Integer> user);
 
-    List<CreditCardDTO> findCreditCardByPrimaryOwner(FirstPartyUserDTO primaryOwner);
 
-    List<CreditCardDTO> findAllCreditCards();
 
 
     @GetMapping("/banking/account_balance/{id}")
     @ResponseStatus(HttpStatus.OK)
     public BalanceDTO searchBalance(@PathVariable Integer id);
 
-    BigDecimal findBalanceOfAccount(Integer id);
 
 
     @PatchMapping("/banking/checking_account_balance/{id}")
@@ -63,4 +52,34 @@ public interface BankingSystemInterface {
     @PatchMapping("/banking/credit_card_balance/{id}")
     @ResponseStatus(HttpStatus.OK)
     public CreditCardDTO modifyCreditCardBalance(@PathVariable Integer id, @RequestBody @Valid BalanceDTO balanceDTO);
+
+    @PostMapping("/banking/account/new_checking_account/")
+    @ResponseStatus(HttpStatus.CREATED)
+    public CheckingAccountDTO createNewCheckingAccount(@RequestBody @Valid CheckingAccountDTO checkingAccountDTO);
+
+    @PostMapping("/banking/account/new_savings_account/")
+    @ResponseStatus(HttpStatus.CREATED)
+    public SavingsAccountDTO createNewSavingsAccount(@RequestBody @Valid SavingsAccountDTO savingsAccountDTO);
+
+    @PostMapping("/banking/account/new_credit_card/")
+    @ResponseStatus(HttpStatus.CREATED)
+    public CreditCardDTO createNewCreditCard(@RequestBody @Valid CreditCardDTO creditCardDTO);
+
+    //User
+
+    @GetMapping("/banking/user/")
+    @ResponseStatus(HttpStatus.OK)
+    public List<UserDTO> searchUser(@RequestParam Optional<Integer> user);
+
+    @PostMapping("/banking/user/new_account_holder/")
+    @ResponseStatus(HttpStatus.CREATED)
+    public AccountHolderDTO createNewCustomer(@RequestBody @Valid FirstPartyUserDTO firstPartyUserDTO);
+
+    @PostMapping("/banking/user/new_admin/")
+    @ResponseStatus(HttpStatus.CREATED)
+    public AdminDTO createNewAdmin(@RequestBody @Valid FirstPartyUserDTO firstPartyUserDTO);
+
+    @PostMapping("/banking/user/new_third_party/")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ThirdPartyDTO createNewThirdParty(@RequestBody @Valid ThirdPartyDTO thirdPartyDTO);
 }

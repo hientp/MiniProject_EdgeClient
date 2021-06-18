@@ -16,19 +16,19 @@ public interface BankingSystemInterface {
     //Accounts
     @GetMapping("/banking/checking_accounts/")
     @ResponseStatus(HttpStatus.OK)
-    public List<CheckingAccountDTO> searchCheckingAccount(@RequestParam Optional<Integer> user);
+    public List<CheckingAccountDTO> searchCheckingAccount(@RequestBody Optional<Integer> user);
 
 
 
     @GetMapping("/banking/savings_accounts/")
     @ResponseStatus(HttpStatus.OK)
-    public List<SavingsAccountDTO> searchSavingsAccount(@RequestParam Optional<Integer> user);
+    public List<SavingsAccountDTO> searchSavingsAccount(@RequestBody Optional<Integer> user);
 
 
 
     @GetMapping("/banking/credit_cards/")
     @ResponseStatus(HttpStatus.OK)
-    public List<CreditCardDTO> searchCreditCard(@RequestParam Optional<Integer> user);
+    public List<CreditCardDTO> searchCreditCard(@RequestBody Optional<Integer> user);
 
 
 
@@ -69,7 +69,7 @@ public interface BankingSystemInterface {
 
     @GetMapping("/banking/user/")
     @ResponseStatus(HttpStatus.OK)
-    public List<UserDTO> searchUser(@RequestParam Optional<Integer> user);
+    public List<UserDTO> searchUser(@RequestBody Optional<Integer> user);
 
     @PostMapping("/banking/user/new_account_holder/")
     @ResponseStatus(HttpStatus.CREATED)
@@ -82,6 +82,5 @@ public interface BankingSystemInterface {
     @PostMapping("/banking/user/new_third_party/")
     @ResponseStatus(HttpStatus.CREATED)
     public ThirdPartyDTO createNewThirdParty(@RequestBody @Valid ThirdPartyDTO thirdPartyDTO);
-
 
 }

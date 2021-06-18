@@ -14,7 +14,6 @@ import javax.validation.Valid;
 public interface TransactionInterface {
 
 
-
     @PostMapping("/banking/transferMoney/")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<TransactionDTO> transferMoney(@RequestBody @Valid TransactionDTO transactionDTO);

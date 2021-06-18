@@ -29,25 +29,27 @@ public class ServiceInstanceRestController {
 
 
     //Accounts
-    @GetMapping("/minibanking/checking_accounts/")
+    @RequestMapping(value = "/minibanking/checking_accounts/", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseStatus(HttpStatus.OK)
-    public List<CheckingAccountDTO> searchCheckingAccount(@RequestParam Optional<Integer> user) {
-       return bankingSystemInterface.searchCheckingAccount(user);
+    public List<CheckingAccountDTO> searchCheckingAccount(@RequestBody Optional<Integer> user) {
+
+        return bankingSystemInterface.searchCheckingAccount(user);
     }
 
-    @GetMapping("/minibanking/savings_accounts/")
+
+    @RequestMapping(value = "/minibanking/savings_accounts/", method = {RequestMethod.GET, RequestMethod.POST} )
     @ResponseStatus(HttpStatus.OK)
-    public List<SavingsAccountDTO> searchSavingsAccount(@RequestParam Optional<Integer> user) {
+    public List<SavingsAccountDTO> searchSavingsAccount(@RequestBody Optional<Integer> user) {
         return bankingSystemInterface.searchSavingsAccount(user);
     }
 
-    @GetMapping("/minibanking/credit_cards/")
+    @RequestMapping(value = "/minibanking/credit_cards/", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseStatus(HttpStatus.OK)
-    public List<CreditCardDTO> searchCreditCard(@RequestParam Optional<Integer> user) {
+    public List<CreditCardDTO> searchCreditCard(@RequestBody Optional<Integer> user) {
        return bankingSystemInterface.searchCreditCard(user);
     }
 
-    @GetMapping("/minibanking/account_balance/{id}")
+    @RequestMapping(value = "/minibanking/account_balance/{id}", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseStatus(HttpStatus.OK)
     public BalanceDTO searchBalance(@PathVariable Integer id) {
         return bankingSystemInterface.searchBalance(id);
@@ -91,9 +93,9 @@ public class ServiceInstanceRestController {
         return bankingSystemInterface.createNewCreditCard(creditCardDTO);
     }
 
-    @GetMapping("/minibanking/user/")
+    @RequestMapping(value = "/minibanking/user/", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseStatus(HttpStatus.OK)
-    public List<UserDTO> searchUser(@RequestParam Optional<Integer> user) {
+    public List<UserDTO> searchUser(@RequestBody Optional<Integer> user) {
         return bankingSystemInterface.searchUser(user);
     }
 
@@ -115,7 +117,7 @@ public class ServiceInstanceRestController {
         return bankingSystemInterface.createNewThirdParty(thirdPartyDTO);
     }
 
-    @GetMapping("/minibanking/transactions/getaccount/{id}")
+    @RequestMapping(value= "/minibanking/transactions/getaccount/{id}", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<AccountDTO> getTransactionAccount(@RequestParam Integer id) {
         return transactionInterface.getTransactionAccount(id);

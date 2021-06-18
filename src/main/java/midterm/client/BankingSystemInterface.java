@@ -82,4 +82,6 @@ public interface BankingSystemInterface {
     @PostMapping("/banking/user/new_third_party/")
     @ResponseStatus(HttpStatus.CREATED)
     public ThirdPartyDTO createNewThirdParty(@RequestBody @Valid ThirdPartyDTO thirdPartyDTO);
+
+
 }

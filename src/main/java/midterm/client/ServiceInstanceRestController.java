@@ -115,5 +115,21 @@ public class ServiceInstanceRestController {
         return bankingSystemInterface.createNewThirdParty(thirdPartyDTO);
     }
 
+    @GetMapping("/minibanking/transactions/getaccount/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<AccountDTO> getTransactionAccount(@RequestParam Integer id) {
+        return transactionInterface.getTransactionAccount(id);
+    }
 
+    @PostMapping("/minibanking/transactions/postaccount/")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<AccountDTO> postTransactionAccount(@RequestParam Integer id,@RequestBody AccountDTO accountDTO) {
+        return transactionInterface.postTransactionAccount(id, accountDTO);
+    }
+
+    @PatchMapping("/minibanking/transactions_account_balance/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public AccountDTO modifyAccountBalance(@PathVariable Integer id, @RequestBody @Valid BalanceDTO balanceDTO) {
+        return transactionInterface.modifyAccountBalance(id, balanceDTO);
+    }
 }

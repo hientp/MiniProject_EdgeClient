@@ -16,17 +16,17 @@ public interface TransactionInterface {
 
     @PostMapping("/banking/transferMoney/")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<TransactionDTO> transferMoney(@RequestBody @Valid TransactionDTO transactionDTO);
+    public TransactionDTO transferMoney(@RequestBody @Valid TransactionDTO transactionDTO);
 
     @GetMapping("/banking/transactions/getaccount/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<AccountDTO> getTransactionAccount(@RequestParam Integer id);
+    public AccountDTO getTransactionAccount(@PathVariable Integer id);
 
     @PostMapping("/banking/transactions/postaccount/")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<AccountDTO> postTransactionAccount(@RequestParam Integer id,@RequestBody AccountDTO accountDTO);
+    public AccountDTO postTransactionAccount(@RequestParam Integer id,@RequestBody AccountDTO accountDTO);
 
-    @PatchMapping("/banking/transactions_account_balance/{id}")
+    @PutMapping("/banking/transactions_account_balance/{id}")
     @ResponseStatus(HttpStatus.OK)
     public AccountDTO modifyAccountBalance(@PathVariable Integer id, @RequestBody @Valid BalanceDTO balanceDTO);
 }

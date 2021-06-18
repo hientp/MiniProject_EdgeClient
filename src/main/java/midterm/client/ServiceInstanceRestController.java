@@ -3,11 +3,13 @@ package midterm.client;
 import midterm.client.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import java.awt.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +25,7 @@ public class ServiceInstanceRestController {
     //Transaction
     @PostMapping("/minibanking/transferMoney/")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<TransactionDTO> transferMoney(@RequestBody @Valid TransactionDTO transactionDTO) {
+    public TransactionDTO transferMoney(@RequestBody @Valid TransactionDTO transactionDTO) {
         return transactionInterface.transferMoney(transactionDTO);
     }
 
@@ -56,20 +58,20 @@ public class ServiceInstanceRestController {
     }
 
 
-    @PatchMapping("/minibanking/checking_account_balance/{id}")
+    @PutMapping("/minibanking/checking_account_balance/{id}")
     @ResponseStatus(HttpStatus.OK)
     public CheckingAccountDTO modifyCheckingAccountBalance(@PathVariable Integer id, @RequestBody @Valid BalanceDTO balanceDTO)  {
         return bankingSystemInterface.modifyCheckingAccountBalance(id,balanceDTO);
     }
 
 
-    @PatchMapping("/minibanking/savings_account_balance/{id}")
+    @PutMapping("/minibanking/savings_account_balance/{id}")
     @ResponseStatus(HttpStatus.OK)
     public SavingsAccountDTO modifySavingsAccountBalance(@PathVariable Integer id, @RequestBody @Valid BalanceDTO balanceDTO)  {
         return bankingSystemInterface.modifySavingsAccountBalance(id,balanceDTO);
     }
 
-    @PatchMapping("/minibanking/credit_card_balance/{id}")
+    @PutMapping("/minibanking/credit_card_balance/{id}")
     @ResponseStatus(HttpStatus.OK)
     public CreditCardDTO modifyCreditCardBalance(@PathVariable Integer id, @RequestBody @Valid BalanceDTO balanceDTO)  {
         return bankingSystemInterface.modifyCreditCardBalance(id,balanceDTO);
@@ -117,19 +119,19 @@ public class ServiceInstanceRestController {
         return bankingSystemInterface.createNewThirdParty(thirdPartyDTO);
     }
 
-    @RequestMapping(value= "/minibanking/transactions/getaccount/{id}", method = {RequestMethod.GET, RequestMethod.POST})
+    @GetMapping("/minibanking/transactions/getaccount/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<AccountDTO> getTransactionAccount(@RequestParam Integer id) {
+    public AccountDTO getTransactionAccount(@PathVariable Integer id) {
         return transactionInterface.getTransactionAccount(id);
     }
 
     @PostMapping("/minibanking/transactions/postaccount/")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<AccountDTO> postTransactionAccount(@RequestParam Integer id,@RequestBody AccountDTO accountDTO) {
+    public AccountDTO postTransactionAccount(@RequestParam Integer id,@RequestBody AccountDTO accountDTO) {
         return transactionInterface.postTransactionAccount(id, accountDTO);
     }
 
-    @PatchMapping("/minibanking/transactions_account_balance/{id}")
+    @RequestMapping( value = "/minibanking/transactions_account_balance/{id}", method = {RequestMethod.PUT, RequestMethod.POST})
     @ResponseStatus(HttpStatus.OK)
     public AccountDTO modifyAccountBalance(@PathVariable Integer id, @RequestBody @Valid BalanceDTO balanceDTO) {
         return transactionInterface.modifyAccountBalance(id, balanceDTO);

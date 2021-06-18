@@ -22,4 +22,6 @@ public class BalanceDTO {
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
+
+
 }

@@ -39,17 +39,17 @@ public interface BankingSystemInterface {
 
 
 
-    @PatchMapping("/banking/checking_account_balance/{id}")
+    @PutMapping("/banking/checking_account_balance/{id}")
     @ResponseStatus(HttpStatus.OK)
     public CheckingAccountDTO modifyCheckingAccountBalance(@PathVariable Integer id, @RequestBody @Valid BalanceDTO balanceDTO);
 
 
-    @PatchMapping("/banking/savings_account_balance/{id}")
+    @PutMapping("/banking/savings_account_balance/{id}")
     @ResponseStatus(HttpStatus.OK)
     public SavingsAccountDTO modifySavingsAccountBalance(@PathVariable Integer id, @RequestBody @Valid BalanceDTO balanceDTO);
 
 
-    @PatchMapping("/banking/credit_card_balance/{id}")
+    @PutMapping("/banking/credit_card_balance/{id}")
     @ResponseStatus(HttpStatus.OK)
     public CreditCardDTO modifyCreditCardBalance(@PathVariable Integer id, @RequestBody @Valid BalanceDTO balanceDTO);
 

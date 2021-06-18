@@ -10,6 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.awt.*;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +27,31 @@ public class ServiceInstanceRestController {
     @PostMapping("/minibanking/transferMoney/")
     @ResponseStatus(HttpStatus.CREATED)
     public TransactionDTO transferMoney(@RequestBody @Valid TransactionDTO transactionDTO) {
-        return transactionInterface.transferMoney(transactionDTO);
+        TransactionDTO transactionDTO1 = transactionInterface.transferMoney(transactionDTO);
+//        BigDecimal amount = transactionDTO1.getAmount();
+//        Integer receiverAccountId = transactionDTO.getReceiverAccountId();
+//        Integer senderAccountId = transactionDTO.getSenderAccountId();
+//        List<CheckingAccountDTO> checkingDTOList = bankingSystemInterface.searchCheckingAccount(Optional.empty());
+//        for(int x = 0; x < checkingDTOList.size(); x++){
+//            if(checkingDTOList.get(x).getId() == senderAccountId){
+//                CheckingAccountDTO senderAccount = checkingDTOList.get(x);
+//                BigDecimal balance = senderAccount.getBalance();
+//                balance = balance.subtract(amount);
+//                BalanceDTO balanceDTO = new BalanceDTO(balance);
+//                bankingSystemInterface.modifyCheckingAccountBalance(senderAccountId, balanceDTO);
+//            }
+//        }
+//        for(int x = 0; x < checkingDTOList.size(); x++){
+//            if(checkingDTOList.get(x).getId() == receiverAccountId){
+//                CheckingAccountDTO receiverAccount = checkingDTOList.get(x);
+//                BigDecimal balance = receiverAccount.getBalance();
+//                balance = balance.add(amount);
+//                BalanceDTO balanceDTO = new BalanceDTO(balance);
+//                bankingSystemInterface.modifyCheckingAccountBalance(receiverAccountId, balanceDTO);
+//            }
+//        }
+
+        return transactionDTO1;
     }
 
 

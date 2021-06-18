@@ -8,7 +8,10 @@ import java.time.LocalDateTime;
 public class CheckingAccountDTO {
 
     @NotNull(message = "You must supply a primary Owner!")
+
     private Integer primaryOwnerId;
+
+    private Integer id;
 
     private Integer secondaryOwnerId;
     private LocalDateTime creationDate;
@@ -27,6 +30,14 @@ public class CheckingAccountDTO {
         this.creationDate = creationDate;
         this.balance = balance;
         this.secretKey = secretKey;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getPrimaryOwnerId() {
